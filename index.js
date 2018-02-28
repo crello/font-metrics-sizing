@@ -7,7 +7,7 @@ const xmlBuilder = new xml.Builder();
 const xmlParser = new xml.Parser();
 const parseXml = promisify(xmlParser.parseString);
 
-const DEFAULT_LINESPACE_FACTOR = 20;
+const DEFAULT_LINESPACE_FACTOR = 10;
 
 function normalizeFontTables(tableOS2, tableHhea, tableHead, linespaceFactor) {
 	let os2WinAsc, os2WinDesc;
@@ -99,7 +99,7 @@ module.exports = async (fontBuffer, linespaceFactor = DEFAULT_LINESPACE_FACTOR) 
 		throw new Error('Second parameter must be an integer value greater or equal 1 !');
 	}
 
-	const fontObject = await bufferToFontObject(filePath);
+	const fontObject = await bufferToFontObject(fontBuffer);
 	fixFontVerticalMetrics(fontObject, linespaceFactor);
 	return fontObjectToBuffer(fontObject);
 };

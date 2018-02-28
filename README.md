@@ -71,7 +71,7 @@ How we get it:
     const fontMetricsSizing = require('font-metrics-sizing');
     const fs = require('fs');
     
-    const linespaceFactor = 10; // percent of scaling font height, default is 20
+    const linespaceFactor = 10; // percent of scaling font height, default is 10
     
     const fileBuffer = fs.readFileSync('./path/to/font.ttf');
     const newFileBuffer = await fontMetricsSizing(fileBuffer, linespaceFactor);
