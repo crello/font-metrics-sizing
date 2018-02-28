@@ -9,7 +9,7 @@ Some fonts may be displayed differently by different OS. Unix-like OS's use `hhe
 This tool was created to fix this issue for TrueType and OpenType fonts. The solution is to recalculate some vertical metrics values for `hhea` and `OS/2` tables.
 
 We have three sets of formula for three cases:
-- when `os2TypoLineGap = 0` and  `(os2TypoAsc + |os2TypoDesc|) > UPM`
+- when `os2TypoLineGap = 0` and  `(os2TypoAsc + |os2TypoDesc|) > UPM`:
 ```
     os2TypoAsc = os2TypoAsc + upperLowerAddUnits;
     os2TypoDesc = os2TypoDesc - upperLowerAddUnits;
@@ -18,14 +18,14 @@ We have three sets of formula for three cases:
     os2WinAsc = hheaAsc;
     os2WinDesc = -hheaDesc;
 ```
-- when `os2TypoLineGap = 0` and  `(os2TypoAsc + |os2TypoDesc|) = UPM`
+- when `os2TypoLineGap = 0` and  `(os2TypoAsc + |os2TypoDesc|) = UPM`:
 ```
     hheaAsc = hheaAsc + upperLowerAddUnits;
     hheaDesc = hheaDesc - upperLowerAddUnits;
     os2WinAsc = hheaAsc;
     os2WinDesc = -hheaDesc;
 ```
-- otherwise
+- otherwise:
 ```
     os2TypoLineGap = lineSpacingUnits;
     hheaAsc = Math.round(os2TypoAsc + (os2TypoLineGap / 2));
@@ -43,13 +43,12 @@ How we get it:
 
     deltaHeight = totalHeight - hheaAscDescDelta;
     upperLowerAddUnits = Math.round(deltaHeight / 2);
-
 ```
-`factor` is the second parameter for module function
+`factor` is the second parameter for module function.
 
 ## Usage
 
-- add module to your package.json dependencies
+- add module to your package.json dependencies:
 ```
 {
     "dependencies": {
@@ -62,12 +61,12 @@ How we get it:
 }
 ```
 
-- install it
+- install it:
 ```
     $ npm install
 ```
 
-- use module in your code
+- use module in your code:
 ```
     const fontMetricsSizing = require('font-metrics-sizing');
     const fs = require('fs');
