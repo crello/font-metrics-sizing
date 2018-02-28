@@ -1,10 +1,10 @@
-#font-metrics-sizing
+# font-metrics-sizing
 
-##Problem
+## Problem
 
 Some fonts may be displayed differently by different OS. Unix-like OS's use `hhea` metrics table but Windows use `OS/2` table instead to display font. So if tables contain different vertical metrics values then Unix-like and Windows systems will render this font not the same way.
 
-##Solution
+## Solution
 
 This tool was created to fix this issue for TrueType and OpenType fonts. The solution is to recalculate some vertical metrics values for `hhea` and `OS/2` tables.
 
@@ -47,7 +47,7 @@ How we get it:
 ```
 `factor` is the second parameter for module function
 
-##Usage
+## Usage
 
 - add module to your package.json dependencies
 ```
