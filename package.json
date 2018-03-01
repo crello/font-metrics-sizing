@@ -21,7 +21,7 @@
         "url": "https://github.com/crello/font-metrics-sizing.git"
     },
     "dependencies": {
-        "fonttools": "1.0.7",
+        "fonttools": "git+https://github.com/crello/node-fonttools.git#v1.0.8",
         "xml2js": "0.4.19"
     }
 }
