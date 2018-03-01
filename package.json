@@ -1,6 +1,6 @@
 {
     "name": "font-metrics-sizing",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "node module for font vertical metrics cross-platform normalization",
     "main": "index.js",
     "scripts": {
