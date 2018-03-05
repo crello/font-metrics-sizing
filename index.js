@@ -1,4 +1,4 @@
-const {decompile, compile} = require('fonttools').default();
+const fonttools = require('fonttools');
 const xml = require('xml2js');
 
 const {promisify} = require('util');
@@ -6,6 +6,8 @@ const {promisify} = require('util');
 const xmlBuilder = new xml.Builder();
 const xmlParser = new xml.Parser();
 const parseXml = promisify(xmlParser.parseString);
+
+let fonttoolsInstance;
 
 const DEFAULT_LINESPACE_FACTOR = 10;
 
@@ -80,17 +82,17 @@ function fixFontVerticalMetrics(font, linespaceFactor) {
 }
 
 function bufferToFontObject(fontBuffer) {
-	const fontXmlBuffer = decompile(fontBuffer);
+	const fontXmlBuffer = fonttoolsInstance.decompile(fontBuffer);
 	return parseXml(fontXmlBuffer.toString('utf8'));
 }
 
 function fontObjectToBuffer(fontObj) {
 	const newFontXml = xmlBuilder.buildObject(fontObj);
 	const newFontXmlBuffer = new Buffer(newFontXml);
-	return compile(newFontXmlBuffer);
+	return fonttoolsInstance.compile(newFontXmlBuffer);
 }
 
-module.exports = async (fontBuffer, linespaceFactor = DEFAULT_LINESPACE_FACTOR) => {
+async function main(fontBuffer, linespaceFactor = DEFAULT_LINESPACE_FACTOR) {
 	if (!Buffer.isBuffer(fontBuffer)) {
 		throw new Error('First parameter must be a buffer !');
 	}
@@ -102,4 +104,12 @@ module.exports = async (fontBuffer, linespaceFactor = DEFAULT_LINESPACE_FACTOR) 
 	const fontObject = await bufferToFontObject(fontBuffer);
 	fixFontVerticalMetrics(fontObject, linespaceFactor);
 	return fontObjectToBuffer(fontObject);
+}
+
+module.exports = (fonttoolsLibPath) => {
+	fonttoolsInstance = fonttoolsLibPath
+		? fonttools.default(fonttoolsLibPath)
+		: fonttools.default();
+
+	return main;
 };
